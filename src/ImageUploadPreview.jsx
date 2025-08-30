@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function App() {
+const ImpageUploadPreview = () => {
     const [images, setImages] = useState([]);
 
     const handleSubmit = () => {
@@ -8,8 +8,6 @@ export function App() {
     };
 
     const handleFileInput = (event) => {
-        console.log('Select File');
-
         const { files } = event.target;
 
         if (files) {
@@ -41,33 +39,34 @@ export function App() {
     };
 
     return <>
-        <h1>Hello world!</h1>
+        <h1>Image Upload Preview</h1>
         <input
             accept="image/*"
             onInput={handleFileInput}
             type="file"
             multiple
         />
-        {images && images.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {images?.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: 'space-around' }}>
                 {images?.map((value, index) => (
-                    <div key={index} style={{ margin: ".5rem" }}>
+                    <div key={index} style={{ display: "flex", flexDirection: 'column', margin: '1rem' }}>
                         <img
-                            width="100"
                             src={value.imgStr}
-                            alt={"uploaded : " + index}
+                            style={{ width: '10rem' }}
                         />
                         <button
-                            aria-label="delete"
-                            onClick={(e) => handleUploadImageRemove(index)}
+                            style={{ cursor: "pointer" }}
+                            onClick={() => handleUploadImageRemove(index)}
                         >
                             Delete
                         </button>
                     </div>
                 ))}
-
             </div>
         )}
-        <button onClick={handleSubmit}>Log to Console</button>
+
+        <button style={{ margin: '2rem' }} onClick={handleSubmit}>Log to Console</button>
     </>
 }
+
+export default ImpageUploadPreview
